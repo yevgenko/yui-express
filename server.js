@@ -333,8 +333,11 @@ YUI({ debug: false }).use('express', 'node', function(Y) {
         }
 
         YUI({ debug: DEBUG }).use('tabview', 'yql', function(page) {
-            var div = page.Node.create('<div id="demo"></div>');
-            page.one('body').addClass('yui3-skin-sam').appendChild(div);
+            var document = page.Browser.document;
+            var div = document.createElement('div');
+            div.id = 'demo';
+            document.body.appendChild(div);
+            page.one('body').addClass('yui3-skin-sam');
             
             page.log('Creating the TabView from script..');
             var tabview = new page.TabView({
@@ -349,7 +352,7 @@ YUI({ debug: false }).use('express', 'node', function(Y) {
                     content: '<p>baz content</p>'
                 }]
             });
-            
+
             tabview.render('#demo');
             var as = page.all('#demo .yui3-tab-label');
             as.each(function(v, k) {
